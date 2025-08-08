@@ -60,7 +60,7 @@ This draws an image. Parameters:
 | `width` | Target width of the image | `1024` |
 | `height` | Target height of the image | `1024` |
 | `source` | Source to pull the image from; must be `http` or `https` (with trusted cert) | `https://placehold.co/1024x1024.png` |
-Your image will always be placed to cover your square. If you put an image with 512x512px in a width=256 and height=512, the left and right side of the image will be cut.
+Your image will always be placed to cover your box. If you put an image with 512x512px in a width=256 and height=512 box, the left and right side of the image will be cut.
 
 ### write_text
 Writes an text on the image
