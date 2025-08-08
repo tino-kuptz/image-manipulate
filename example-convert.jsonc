@@ -1,0 +1,71 @@
+/**
+ * Aufgepasst: die hier wird in /api/v1/test genutzt und darf NICHT einfach gelöscht
+ * werden, sonst läuft der Container nicht.
+ */
+{
+    "format": "png",
+    "quality": 100,
+    "canvas": {
+        // Die Größe des Ziel-Bildes
+        "width": 1024,
+        "height": 1024
+    },
+    "steps": [
+        {
+            // Erster Schritt
+            // Ein Bild über die gesamte Fläche zeichnen
+            "action": "draw_image",
+            "x": 0,
+            "y": 0,
+            "width": 1024,
+            "height": 1024,
+            "source": "https://placehold.co/1024x1024.png"
+        },
+        {
+            // Zweiter Schritt
+            // Ein zweites links oben in die Ecke
+            // Hier aufgepasst - die eigentlichen Bildmaße sind 1024x1024, aber wir zeichnen nur 512x512
+            "action": "draw_image",
+            "x": 0,
+            "y": 0,
+            "width": 512,
+            "height": 512,
+            "source": "https://placehold.co/1024x1024.png"
+        },
+        {
+            // Dritter Schritt
+            // Einen Text mittig schreiben, mit Abstand zu allen Seiten
+            "action": "write_text",
+            "x": 150,
+            "y": 200,
+            "width": 724, // = 1024 - 2x 150
+            "height": 600,
+            "text": "Hello World, Hello, Hello World, Hello World, Hello World, Hello World, Hello World",
+            "font": "Arial",
+            "font_size": 60,
+            "color": "#FF0000",
+            "align": "left",
+            "valign": "center",
+            // Standard für draw_border: false
+            // "draw_border": { "color": "#RRGGBB", "stroke_width": 2, "radius": 0 }
+            "draw_border": true
+        },
+        {
+            // Vierter Schritt
+            // Einen Text unten schreiben
+            "action": "write_text",
+            "x": 20,
+            "y": 964,
+            "width": 964,
+            "height": 40,
+            "text": "Copyright (c) image-converter",
+            // Standard für line_break: true
+            "line_break": false,
+            "font": "Arial",
+            "font_size": 20,
+            "color": "#00FF00",
+            "align": "right",
+            "valign": "center"
+        }
+    ]
+}
