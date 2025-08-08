@@ -45,8 +45,11 @@ The resulting image will look like this:<br>
 
 You can, by the way, leave the comments in the post body. They will be trimmed automatically.
 ### Installation
-This image will be deployed via dockerhub. But I didn't do that yet.<br>
-So this part of the Readme will be replaced soon.
+The image is available via docker:
+```sh
+docker run -p 3000:3000 tinokuptz/image-manipulate:latest
+````
+Browse to http://localhost:3000 and you can play around with it.
 
 ### Possible steps
 Steps will be executed from to to bottom, so that you always draw "on top of the image"
@@ -92,3 +95,12 @@ Simple browse to the root directory of the url
 More steps might come from time to time, as soon as I need them.
 
 In case you need some - feel free to issue a pull request.
+
+## Development and building
+For me, until I configure drone ci on this one
+```sh
+# AMD64
+docker build --platform linux/amd64 -t tinokuptz/image-manipulate:latest -t tinokuptz/image-manipulate:1.0 .
+docker push tinokuptz/image-manipulate:latest
+docker push tinokuptz/image-manipulate:1.0
+```
