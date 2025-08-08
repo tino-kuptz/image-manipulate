@@ -43,6 +43,7 @@ In order to create an image using this container you simply need to post to `/ap
             "font_size": 60,
             "align": "left",
             "valign": "center",
+            "draw_border": true
         }
     ]
 }
