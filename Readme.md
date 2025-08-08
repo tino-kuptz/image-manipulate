@@ -1,10 +1,17 @@
 # image-manipulate
-A docker container for creating images defined by a json object
+A docker container for creating images defined by a json file. Easily compose images using dynamic data, without any third party service.
 
 ## Motivation
 I tried to center a text in n8n without paying someone for an api.
 
-## Usage
+## Run
+The image is available via [Dockerhub](https://hub.docker.com/r/tinokuptz/image-manipulate):
+```sh
+docker run -p 3000:3000 tinokuptz/image-manipulate:latest
+```
+Browse to http://localhost:3000 and you can play around with it.
+
+## API Usage
 In order to create an image using this container you simply need to post to `/api/v1/image` with a body like this:
 ```jsonc
 {
@@ -44,17 +51,11 @@ The resulting image will look like this:<br>
 <img src="readme/example-image.png" alt="Generated example image" style="max-width: 80dvw; max-height: 80dvh;" />
 
 You can, by the way, leave the comments in the post body. They will be trimmed automatically.
-### Installation
-The image is available via docker:
-```sh
-docker run -p 3000:3000 tinokuptz/image-manipulate:latest
-````
-Browse to http://localhost:3000 and you can play around with it.
 
 ### Possible steps
 Steps will be executed from to to bottom, so that you always draw "on top of the image"
 
-### draw_image
+#### draw_image
 This draws an image. Parameters:
 | Name | Description | Example value |
 |---|---|--:|
@@ -63,6 +64,7 @@ This draws an image. Parameters:
 | `width` | Target width of the image | `1024` |
 | `height` | Target height of the image | `1024` |
 | `source` | Source to pull the image from; must be `http` or `https` (with trusted cert) | `https://placehold.co/1024x1024.png` |
+
 Your image will always be placed to cover your box. If you put an image with 512x512px in a width=256 and height=512 box, the left and right side of the image will be cut.
 
 ### write_text
