@@ -54,7 +54,7 @@ In order to create an image using this container you simply need to post to `/ap
 }
 ```
 The resulting image will look like this:<br>
-<img src="readme/example-image.png" alt="Generated example image" style="max-width: 50dvw; max-height: 50dvh;" />
+<img src="readme/example-image.png" alt="Generated example image" width="50%" />
 
 > [!TIP]
 > You can use [jsonc](https://github.com/komkom/jsonc) in the request body, so you can comment your single steps for better management.
