@@ -12,7 +12,8 @@ FROM node:22-alpine3.22 AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
-RUN apk add --no-cache tini ca-certificates
+RUN apk add --no-cache tini ca-certificates \
+    font-terminus font-inconsolata font-dejavu font-noto font-noto-cjk font-noto-extra
 
 COPY --chown=node:node --from=build /app/.output .
 USER node
