@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "nuxt": "latest",
+    "bootstrap": "^5.3.3",
+    "monaco-editor": "^0.45.0",
     "sharp": "^0.33.4",
     "strip-json-comments": "^5.0.3",
     "zod": "^3.23.8"
