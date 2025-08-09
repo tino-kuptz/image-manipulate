@@ -175,14 +175,8 @@ Optional values for draw_line:
 
 Opacity: same as CSS, `0` = transparent, `1` = full visible
 
-## Quick check for image generation
-This container has a gui where you can enter your json and check the output.
-
-Simple browse to the root directory of the url
-
 ### more?
 More steps might come from time to time, as soon as I need them.
-
 In case you need some - feel free to issue a pull request.
 
 ## Development and building
