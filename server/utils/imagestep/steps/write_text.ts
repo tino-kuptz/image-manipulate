@@ -1,4 +1,4 @@
-import { Sharp } from 'sharp'
+import sharp, { Sharp } from 'sharp'
 import { z } from 'zod'
 import type { StepImplementation } from '../registry'
 import { measureTextWidthPx, wrapTextByMeasuredWidth, escapeXml } from '../../common'
@@ -17,6 +17,7 @@ const WriteTextSchema = z.object({
   align: z.enum(['left', 'center', 'right']).default('left'),
   valign: z.enum(['top', 'center', 'bottom']).default('top'),
   line_break: z.boolean().default(true),
+  opacity: z.number().min(0).max(1).default(1),
   draw_border: z
     .union([
       z.boolean(),
@@ -99,9 +100,18 @@ export const write_text: StepImplementation = {
     const step = WriteTextSchema.parse(stepRaw)
 
     const svg = Buffer.from(await svgForTextBox(step))
+    // Apply opacity by adjusting alpha in the SVG layer before compositing
+    let svgBuffer = svg
+    if (step.opacity < 1) {
+      svgBuffer = await sharp(svgBuffer)
+        .ensureAlpha()
+        .linear([1, 1, 1, step.opacity], [0, 0, 0, 0])
+        .png()
+        .toBuffer()
+    }
     return image.ensureAlpha().composite([
       {
-        input: svg,
+        input: svgBuffer,
         left: step.x,
         top: step.y,
       },

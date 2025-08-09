@@ -10,6 +10,7 @@ const DrawImageSchema = z.object({
   y: z.number().int().nonnegative().default(0),
   width: z.number().int().positive().optional(),
   height: z.number().int().positive().optional(),
+  opacity: z.number().min(0).max(1).default(1),
 })
 
 // replaced by common util
@@ -27,7 +28,15 @@ export const draw_image: StepImplementation = {
       overlay = overlay.resize(step.width, step.height, { fit: 'cover' })
     }
 
-    const overlayBuffer = await overlay.png().toBuffer()
+    let overlayBuffer = await overlay.png().toBuffer()
+    // Apply overall opacity by scaling the alpha channel before compositing
+    if (step.opacity < 1) {
+      overlayBuffer = await sharp(overlayBuffer)
+        .ensureAlpha()
+        .linear([1, 1, 1, step.opacity], [0, 0, 0, 0])
+        .png()
+        .toBuffer()
+    }
     // Avoid premultiplied alpha surprises
     return currentImage.ensureAlpha().composite([
       {
