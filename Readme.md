@@ -189,7 +189,7 @@ In case you need some - feel free to issue a pull request.
 For me, until I configure drone ci on this one
 ```sh
 # AMD64
-docker build --platform linux/amd64 -t tinokuptz/image-manipulate:latest -t tinokuptz/image-manipulate:1.0 .
+docker build --platform linux/amd64 -t tinokuptz/image-manipulate:latest -t tinokuptz/image-manipulate:1.1 .
 docker push tinokuptz/image-manipulate:latest
-docker push tinokuptz/image-manipulate:1.0
+docker push tinokuptz/image-manipulate:1.1
 ```
