@@ -3,10 +3,10 @@ A docker container for creating images defined by a json file. Easily compose im
 
 ## Intro
 
-## Motivation
+### Motivation
 I tried to center a text in n8n without paying someone for an api. As the image manipulation api is kinda bad in n8n, and I didn't know how to actually write a custom node, I simply made a docker container that can be queried to generate images
 
-## Honorable mention
+### Honorable mention
 This project is only possible due to the work done by the contributors of [sharp](https://www.npmjs.com/package/sharp) ❤️
 
 ## Run
@@ -14,7 +14,7 @@ The image is available via [Dockerhub](https://hub.docker.com/r/tinokuptz/image-
 ```sh
 docker run -p 3000:3000 tinokuptz/image-manipulate:latest
 ```
-Browse to http://localhost:3000 and you can play around with it.
+Browse to http://localhost:3000 and you can play around with it, see [a screenshot of the gui](https://github.com/tino-kuptz/image-manipulate/blob/main/readme/local-frontend.png).
 
 ## API Usage
 In order to create an image using this container you simply need to post to `/api/v1/image` with a body like this:
@@ -54,9 +54,11 @@ In order to create an image using this container you simply need to post to `/ap
 }
 ```
 The resulting image will look like this:<br>
-<img src="readme/example-image.png" alt="Generated example image" style="max-width: 80dvw; max-height: 80dvh;" />
+<img src="readme/example-image.png" alt="Generated example image" style="max-width: 50dvw; max-height: 50dvh;" />
 
-You can, by the way, leave the comments in the post body. They will be trimmed automatically.
+> [!TIP]
+> You can use [jsonc](https://github.com/komkom/jsonc) in the request body, so you can comment your single steps for better management.
+> Please be aware, that if you use jsonc, you need to change the Content-Type to `application/jsonc` instead of `application/json`, otherwise you will get a http error 400 - "invalid json"
 
 ### Possible steps
 Steps will be executed from to to bottom, so that you always draw "on top of the image"
@@ -70,6 +72,11 @@ This draws an image. Parameters:
 | `width` | Target width of the image | `1024` |
 | `height` | Target height of the image | `1024` |
 | `source` | Source to pull the image from; must be `http` or `https` (with trusted cert) | `https://placehold.co/1024x1024.png` |
+
+Example step:
+```json
+{ "action": "draw_image", "x": 20, "y": 20, "width": 128, "height": 128, "text": "https://placehold.co/128x128.png" }
+```
 
 Optional values for draw_image:
 | Name | Description | Default value |
@@ -99,7 +106,12 @@ There are some optional values, too
 | `color` | Color hex code | `#000000` |
 | `line_break` | Break text when it's longer then the textboxs width | `true` |
 
-Optional values for write_text:
+Example step:
+```json
+{ "action": "write_text", "x": 10, "y": 10, "width": 250, "height": 30, "text": "Hellow world" }
+```
+
+There is an optional argument for write_text:
 | Name | Description | Default value |
 |---|---|--:|
 | `opacity` | Text opacity 0..1 | `1` |
